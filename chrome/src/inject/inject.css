@@ -46,6 +46,19 @@
 
 .cc-logo{
     float: right;
+    background-color: darkblue;
+    color: #FFFFFF;
+    -webkit-border-top-left-radius: 20px;
+    -webkit-border-bottom-right-radius: 20px;
+    -moz-border-radius-topleft: 20px;
+    -moz-border-radius-bottomright: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 10px;
+    box-shadow: 3px 3px 3px #888888;
 }
 
 .nav {
