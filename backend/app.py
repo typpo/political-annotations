@@ -46,7 +46,7 @@ def contact():
   print id
   r = requests.get('http://congress.api.sunlightfoundation.com/legislators?bioguide_id=%s&apikey=dde4e99ca38e411abbc7d13af84ecbc0' % id)
   data = json.loads(r.text)
-  return data['results']
+  return data['results'][0]
 
 @app.route('/contribs')
 def contribs_route():

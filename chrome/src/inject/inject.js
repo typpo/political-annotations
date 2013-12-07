@@ -9,7 +9,10 @@ var BOX_TEMPLATE =
 '</div>';
 
 var BOX_CONTENT =
-  '<div class="cc_top"><img src="https://usercontent.googleapis.com/freebase/v1/image/en/<%= name.toLowerCase().replace(\' \', \'_\') %>"/><h1><%=name%></h1></div>' +
+  '<div class="cc_top"><img src="https://usercontent.googleapis.com/freebase/v1/image/en/<%= name.toLowerCase().replace(\' \', \'_\') %>"/><h1><%=name%></h1>' +
+  '<a class="cc_tweet_link" target="_blank" href="http://twitter.com/<%= contact.twitter_id %>"><img class="cc_twitter" src="http://s.huffpost.com/images/icons/twitter-icon-vsmall.png"/></a>' +
+  '<%= capitalize(contact.state_rank) %> Senator, <%= contact.state_name %> (<%= contact.party %>)' +
+  '</div>' +
   '<div class="cc_content">' +
   '<span class="cc_sub">Where\'s the money?</span>' +
   '<table>' +
@@ -96,7 +99,8 @@ var mouseenter_TIMEOUT_MS = 700;
       fetchDetails(name, function(data) {
         $box.html(tmpl(BOX_CONTENT, {
           name: name,
-          contribs: data.results,
+          contact: data.contact,
+          contribs: data.contribs,
         }));
         clearTimeout(t_hide);
       });
@@ -109,18 +113,19 @@ var mouseenter_TIMEOUT_MS = 700;
 
   var contrib_cache = {};
   function fetchDetails(name, callback) {
-    var url = 'http://localhost:5000/contribs?name=' + name;
-    if (contrib_cache[url]) {
-      setTimeout(function() {
-        callback(contrib_cache[url]);
-      }, 0);
-    } else {
-      $.getJSON(url, function(data) {
-        contrib_cache[url] = data;
-        callback(data);
-      });
-    }
-
+    chrome.storage.local.get(name, function(data) {
+      var url = 'http://localhost:5000/person?name=' + name + '&id=' + data[name].bioguide_id;
+      if (contrib_cache[url]) {
+        setTimeout(function() {
+          callback(contrib_cache[url]);
+        }, 0);
+      } else {
+        $.getJSON(url, function(data) {
+          contrib_cache[url] = data;
+          callback(data);
+        });
+      }
+    });
   }
 
   function loadSenators(callback) {
@@ -193,4 +198,8 @@ function commaSeparateNumber(val){
     val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
   }
   return val;
+}
+
+function capitalize(s) {
+  return s[0].toUpperCase() + s.slice(1);
 }

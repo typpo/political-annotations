@@ -34,12 +34,13 @@
 
   margin-top: 20px;
 
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .cc_box h1 {
   font-size: 20px;
   font-weight: bold;
+  margin-bottom: 8px;
 }
 
 .cc_box table {
@@ -91,3 +92,8 @@
   border-top: 20px solid #f00;
 }
 
+.cc_tweet_link {
+  position: absolute;
+  right: 10px;
+  top: 50px
+}
