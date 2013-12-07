@@ -17,12 +17,14 @@
     "persistent": true
   },
   "permissions": [
-    "*"
+    "http://*/*",
+    "https://*/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://www.google.com/*"
+        "http://*/*",
+        "https://*/*"
       ],
       "css": [
         "src/inject/inject.css"
@@ -30,9 +32,11 @@
     },
     {
       "matches": [
-        "https://www.google.com/*"
+        "http://*/*",
+        "https://*/*"
       ],
       "js": [
+        "js/jquery/jquery.min.js",
         "src/inject/inject.js"
       ]
     }
