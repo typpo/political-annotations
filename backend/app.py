@@ -33,19 +33,25 @@ def people():
 
 @app.route('/person')
 def person():
-  d = contact()
+  c = contact()
   p = contribs()
-  return 
+  return jsonify({'contact': c, 'contribs': p})
 
 @app.route('/contact')
+def contact_route():
+  return jsonify({'results': contact()})
+
 def contact():
   id = request.args.get('id', None)
   print id
   r = requests.get('http://congress.api.sunlightfoundation.com/legislators?bioguide_id=%s&apikey=dde4e99ca38e411abbc7d13af84ecbc0' % id)
   data = json.loads(r.text)
-  return jsonify({'results':data['results']})
+  return data['results']
 
 @app.route('/contribs')
+def contribs_route():
+  return jsonify({ 'results': contribs() })
+
 def contribs():
   name = request.args.get('name', None)
   # bio id does not work for cory booker
@@ -70,15 +76,7 @@ def contribs():
       'name': contrib['name'],
       })
 
-  return jsonify({
-    'results': sorted(ret[:5], key=lambda x: x['total_amount'], reverse=True)
-    })
-
-  r = requests.get('http://transparencydata.com/api/1.0/aggregates/pol/4148b26f6f1c437cb50ea9ca4699417a/contributors.json?cycle=2012&limit=100&apikey=dde4e99ca38e411abbc7d13af84ecbc0')
-
-  obj = json.loads(r.text)
-
-  return r.text
+  return  sorted(ret[:5], key=lambda x: x['total_amount'], reverse=True)
 
 if __name__ == "__main__":
   app.run(debug=True)
