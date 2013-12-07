@@ -14,18 +14,32 @@ var MOUSEOVER_TIMEOUT_MS = 700;
 (function() {
   console.log('Loaded.');
   var $ = jQuery.noConflict();
-  var politicians = ['John Boehner', 'Chuck Grassley'];
-  // TODO: Get more politicians from endpoint
 
-  var regex_str = '(';
-  for (var i=0; i < politicians.length; i++) {
-    if (i > 0) regex_str += '|';
-    regex_str += politicians[i];
-  }
-  regex_str += ')';
-  console.log(regex_str);
-  var regex = RegExp(regex_str, 'g');
-  document.body.innerHTML = document.body.innerHTML.replace(regex, '<span class="cc_highlight">$1</span>');
+  loadSenators(function() {
+    chrome.storage.local.get('all_pols', function(data) {
+      if(chrome.runtime.lastError) {
+        console.error(chrome.runtime.lastError);
+        return;
+      }
+
+      var politicians = data.all_pols;
+      if (politicians.length < 1) {
+        console.error('Where are the politicians?');
+        return;
+      }
+
+      var regex_str = '(';
+      for (var i=0; i < politicians.length; i++) {
+        if (i > 0) regex_str += '|';
+        regex_str += politicians[i];
+      }
+      regex_str += ')';
+      var regex = RegExp(regex_str, 'g');
+      document.body.innerHTML = document.body.innerHTML.replace(regex, '<span class="cc_highlight">$1</span>');
+
+      bindDialogs();
+    });
+  });
 
   /*
   function highlightPolititions(pols) {
@@ -39,74 +53,68 @@ var MOUSEOVER_TIMEOUT_MS = 700;
   highlightPolititions(politicians);
   */
 
-  // Build/request on hover
-  var t_hide = null;
-  $('.cc_highlight').on('mouseover', function(e) {
-    if ($('#cc_box').length < 1) {
-      $('body').append(tmpl(BOX_TEMPLATE, {
-        name: $(this).text(),
-      }));
-    }
+  function bindDialogs() {
+    var t_hide = null;
+    $('.cc_highlight').on('mouseover', function(e) {
+      if ($('#cc_box').length < 1) {
+        $('body').append(tmpl(BOX_TEMPLATE, {
+          name: $(this).text(),
+        }));
+      }
 
-    var $box = $('#cc_box');
-    var $span = $(this);
-    $box.css({
-      top: $span.offset().top - $('#cc_box').height() - 75,
-      left: $span.offset().left - $('#cc_box').width()/2 + $span.width(),
-    }).on('mouseover', function() {
+      var $box = $('#cc_box');
+      var $span = $(this);
+      $box.css({
+        top: $span.offset().top - $('#cc_box').height() - 75,
+        left: $span.offset().left - $('#cc_box').width()/2 + $span.width(),
+      }).on('mouseover', function() {
+        clearTimeout(t_hide);
+      }).on('mouseout', function() {
+        t_hide = setTimeout(function() {
+          $box.remove();
+        }, MOUSEOVER_TIMEOUT_MS);
+      });
       clearTimeout(t_hide);
+
     }).on('mouseout', function() {
       t_hide = setTimeout(function() {
-        $box.remove();
+        $('#cc_box').remove();
       }, MOUSEOVER_TIMEOUT_MS);
     });
-    clearTimeout(t_hide);
+  }
 
-  }).on('mouseout', function() {
-    t_hide = setTimeout(function() {
-      $('#cc_box').remove();
-    }, MOUSEOVER_TIMEOUT_MS);
-  });
-
-  loadSenators($, function() {
-    chrome.storage.local.get('Ted Cruz', function(data) {
+  function loadSenators(callback) {
+    console.log('Checking senators');
+    chrome.storage.local.get('synced', function(data) {
       if(chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError);
         return;
       }
-      console.log(data);
-    });
-  });
-  console.log('Done.');
-})(jQuery);
-
-function loadSenators($, callback) {
-  console.log('Checking senators');
-  chrome.storage.local.get('synced', function(data) {
-    if(chrome.runtime.lastError) {
-      console.error(chrome.runtime.lastError);
-      return;
-    }
-    if (data) {
-      console.log('already have');
-      callback();
-      return;
-    }
-    console.log('Loading senators');
-
-    $.getJSON('http://localhost:5000/legislature', function(data) {
-      var legislators = data.results;
-      for (var i=0; i < legislators.length; i++) {
-        var legislator = legislators[i];
-        obj = {};
-        obj[legislator.first_name + ' ' + legislator.last_name] = legislator;
-        chrome.storage.local.set(obj);
+      if (data) {
+        console.log('already have');
+        //callback();
+        //return;
       }
-      console.log(data);
-      callback();
+      console.log('Loading senators');
+
+      $.getJSON('http://localhost:5000/legislature', function(data) {
+        var legislators = data.results;
+        var all_pols = [];
+        for (var i=0; i < legislators.length; i++) {
+          var legislator = legislators[i];
+          var key = legislator.first_name + ' ' + legislator.last_name;
+          all_pols.push(key);
+          var obj = {};
+          obj[key] = legislator;
+          chrome.storage.local.set(obj);
+        }
+        chrome.storage.local.set({'all_pols': all_pols});
+        callback();
+      });
     });
-  });
-}
+  }
+
+})(jQuery);
 
 // John Resig - http://ejohn.org/ - MIT Licensed
 var cache = {};
