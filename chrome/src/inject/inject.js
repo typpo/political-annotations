@@ -1,10 +1,10 @@
 // Test me:
 // http://www.factcheck.org/2013/12/boehner-vs-castro-on-the-exchange/
-//
 
 console.log('Injected.');
 
-var BOX_TEMPLATE = '<div id="cc_box" class="cc_box">' +
+var BOX_TEMPLATE = 
+'<div id="cc_box" class="cc_box">' +
   '<h1><%=name%></h1>' +
   'Some description here......' +
 '</div>';
@@ -14,11 +14,17 @@ var MOUSEOVER_TIMEOUT_MS = 700;
 (function() {
   console.log('Loaded.');
   var $ = jQuery.noConflict();
+  var politicians = ['John Boehner'];
+  // TODO: Get more politicians from endpoint
 
-  // Get politicians
-
-  // Wrap name with span with a special class
-  document.body.innerHTML = document.body.innerHTML.replace(/John Boehner/g, '<span class="cc_highlight">John Boehner</span>');
+  function highlightPolititions(pols) {
+		for (pol in pols) {
+      var polEl = $(":contains('"+pol+"')");
+      var replacement = $('<span class="cc_highlight/>');
+      polEL.html(polEl.html.replace(pol, replacement.html(pol));
+	}}
+  
+  highlightPolititions(politicians);
 
   // Build/request on hover
   var t_hide = null;
