@@ -9,6 +9,8 @@ var BOX_TEMPLATE = '<div id="cc_box" class="cc_box">' +
   'Some description here......' +
 '</div>';
 
+var MOUSEOVER_TIMEOUT_MS = 700;
+
 (function() {
   console.log('Loaded.');
   var $ = jQuery.noConflict();
@@ -19,6 +21,7 @@ var BOX_TEMPLATE = '<div id="cc_box" class="cc_box">' +
   document.body.innerHTML = document.body.innerHTML.replace(/John Boehner/g, '<span class="cc_highlight">John Boehner</span>');
 
   // Build/request on hover
+  var t_hide = null;
   $('.cc_highlight').on('mouseover', function(e) {
     if ($('#cc_box').length < 1) {
       $('body').append(tmpl(BOX_TEMPLATE, {
@@ -26,12 +29,25 @@ var BOX_TEMPLATE = '<div id="cc_box" class="cc_box">' +
       }));
     }
 
-    $('#cc_box').css({
-        top: e.clientY - 350,
-        left: e.clientX - 150,
-      });
-  });
+    var $box = $('#cc_box');
+    var $span = $(this);
+    $box.css({
+      top: $span.offset().top - $('#cc_box').height() - 75,
+      left: $span.offset().left - $('#cc_box').width()/2 + $span.width(),
+    }).on('mouseover', function() {
+      clearTimeout(t_hide);
+    }).on('mouseout', function() {
+      t_hide = setTimeout(function() {
+        $box.remove();
+      }, MOUSEOVER_TIMEOUT_MS);
+    });
+    clearTimeout(t_hide);
 
+  }).on('mouseout', function() {
+    t_hide = setTimeout(function() {
+      $('#cc_box').remove();
+    }, MOUSEOVER_TIMEOUT_MS);
+  });
 
   console.log('Done.');
 })(jQuery);
