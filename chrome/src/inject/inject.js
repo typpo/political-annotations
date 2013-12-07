@@ -40,32 +40,18 @@ var mouseenter_TIMEOUT_MS = 700;
         return;
       }
 
-      var regex_str = '(';
-      for (var i=0; i < politicians.length; i++) {
-        if (i > 0) regex_str += '|';
-        regex_str += politicians[i];
-      }
-      regex_str += ')';
-      var regex = RegExp(regex_str, 'g');
-      $('p').each(function() {
-        this.innerHTML = this.innerHTML.replace(regex, '<span class="cc_highlight">$1</span>');
-      });
-
+      highlightPolititions(politicians);
       bindDialogs();
     });
   });
 
-  /*
   function highlightPolititions(pols) {
-		for (pol in pols) {
-      var polEl = $(":contains('"+pol+"')");
-      var replacement = $('<span class="cc_highlight/>');
-      polEl.html(polEl.html().replace(pol, replacement.html(pol)));
-    }
+  	var regex_str = '(' + politicians.split('|') + ')';
+	  var regex = RegExp(regex_str, 'g');
+	  $('p').each(function() {
+	    this.innerHTML = this.innerHTML.replace(regex, '<span class="cc_highlight">$1</span>');
+	  });
   }
-
-  highlightPolititions(politicians);
-  */
 
   function bindDialogs() {
     var t_hide = null;
