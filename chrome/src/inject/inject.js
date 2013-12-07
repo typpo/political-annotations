@@ -14,9 +14,20 @@ var MOUSEOVER_TIMEOUT_MS = 700;
 (function() {
   console.log('Loaded.');
   var $ = jQuery.noConflict();
-  var politicians = ['John Boehner'];
+  var politicians = ['John Boehner', 'Chuck Grassley'];
   // TODO: Get more politicians from endpoint
 
+  var regex_str = '(';
+  for (var i=0; i < politicians.length; i++) {
+    if (i > 0) regex_str += '|';
+    regex_str += politicians[i];
+  }
+  regex_str += ')';
+  console.log(regex_str);
+  var regex = RegExp(regex_str, 'g');
+  document.body.innerHTML = document.body.innerHTML.replace(regex, '<span class="cc_highlight">$1</span>');
+
+  /*
   function highlightPolititions(pols) {
 		for (pol in pols) {
       var polEl = $(":contains('"+pol+"')");
@@ -26,6 +37,7 @@ var MOUSEOVER_TIMEOUT_MS = 700;
   }
 
   highlightPolititions(politicians);
+  */
 
   // Build/request on hover
   var t_hide = null;
