@@ -93,9 +93,8 @@ var mouseenter_TIMEOUT_MS = 700;
           name: name,
           contribs: data.results,
         }));
+        clearTimeout(t_hide);
       });
-
-      clearTimeout(t_hide);
 
     }).on('mouseleave', function() {
       t_hide = setTimeout(function() {
