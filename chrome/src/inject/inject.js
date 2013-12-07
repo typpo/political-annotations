@@ -1,7 +1,3 @@
-// Test me:
-// http://www.factcheck.org/2013/12/boehner-vs-castro-on-the-exchange/
-// http://www.huffingtonpost.com/2013/08/13/cory-booker-rand-paul-ted-cruz_n_3749389.html
-
 console.log('Injected.');
 
 var BOX_TEMPLATE =
