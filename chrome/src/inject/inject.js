@@ -123,21 +123,30 @@ var mouseenter_TIMEOUT_MS = 700;
         return;
       }
       console.log('Loading senators');
-
-      $.getJSON('http://localhost:5000/legislature', function(data) {
-        var legislators = data.results;
-        var all_pols = [];
-        for (var i=0; i < legislators.length; i++) {
-          var legislator = legislators[i];
-          var key = legislator.first_name + ' ' + legislator.last_name;
-          all_pols.push(key);
-          var obj = {};
-          obj[key] = legislator;
-          chrome.storage.local.set(obj);
-        }
-        chrome.storage.local.set({'all_pols': all_pols});
-        callback();
-      });
+        $.ajax({
+            url: "http://localhost:5000/legislature",
+            dataType: 'json',
+            timeout: 10000,
+            success:  function(data){
+                var legislators = data.results;
+                var all_pols = [];
+                for (var i=0; i < legislators.length; i++) {
+                    var legislator = legislators[i];
+                    var key = legislator.first_name + ' ' + legislator.last_name;
+                    all_pols.push(key);
+                    var obj = {};
+                    obj[key] = legislator;
+                    chrome.storage.local.set(obj);
+                }
+                chrome.storage.local.set({'all_pols': all_pols});
+                callback();
+            },
+            error: function()
+            {
+                console.log("error loading url");
+                $('#cc_box').empty().html("There was error loading contents.  Please refresh the page and try again.");
+            }
+        });
     });
   }
 
