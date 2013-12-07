@@ -57,7 +57,6 @@ def contribs():
   obj = json.loads(r.text)
 
   return r.text
->>>>>>> 0b4abacc5f89f4811a914d725a516bc6449342fa
 
 if __name__ == "__main__":
   app.run(debug=True)
