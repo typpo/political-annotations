@@ -121,7 +121,9 @@ var mouseenter_TIMEOUT_MS = 700;
         }, 0);
       } else {
         $.getJSON(url, function(data) {
-          contrib_cache[url] = data;
+          if (data.name)  {
+            contrib_cache[url] = data;
+          }
           callback(data);
         });
       }
