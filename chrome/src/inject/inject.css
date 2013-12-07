@@ -23,7 +23,6 @@
 }
 
 .cc-container {
-
 }
 
 .cc-tabbable{
@@ -46,7 +45,7 @@
 
 .cc-logo{
     float: right;
-    background-color: darkblue;
+    background-color: #0088cc;
     color: #FFFFFF;
     -webkit-border-top-left-radius: 20px;
     -webkit-border-bottom-right-radius: 20px;
@@ -90,7 +89,6 @@
     cursor: default;
 }
 
-
 .nav > li > a {
     margin-right: -1px;
     -webkit-border-radius: 4px 0 0 4px;
@@ -103,7 +101,6 @@
     float: right;
     width: 360px;
 }
-
 
 .active {
     background-color: #0088cc;
