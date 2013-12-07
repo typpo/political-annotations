@@ -1,8 +1,8 @@
 Endpoint Legislators():
-	r = requests.get('congress.api.sunlightfoundation.com/legislators?chamber=senate&apikey=dde4e99ca38e411abbc7d13af84ecbc0') 
+	r = requests.get('congress.api.sunlightfoundation.com/legislators?chamber=senate&apikey=dde4e99ca38e411abbc7d13af84ecbc0')
 	#JSON decode into list = total list of senators
 	#temp JSON or list = return
-	#while(len(list) != 0) 
+	#while(len(list) != 0)
 		#fname = first name index at pos
 		#lname = last name index at pos
 		#mname = middle name index at pos
@@ -11,7 +11,7 @@ Endpoint Legislators():
 		#temp push to return array or JSON
 	return or echo return
 
-	
+
 Endpoint Legislator(first_name, last_name, id):
 	r = requests.get('congress.api.sunlightfoundation.com/legislators?chamber=senate&bioguide_id='+ bioguide_id + &apikey=dde4e99ca38e411abbc7d13af84ecbc0')
 
@@ -19,6 +19,6 @@ Endpoint Legislator(first_name, last_name, id):
 
 	x = '{ "contact": ' + r + ',\n' +
 	       "contributions": + d + '}'
-	echo x 
+	echo x
 	return jsonobject()
 
