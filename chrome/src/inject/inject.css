@@ -8,7 +8,7 @@
 .cc_box {
   position: absolute;
   width: 480px;
-  max-height: 300px;
+  max-height: 500px;
   background-color: #eee;
   z-index: 9999;
   padding: 5px;
@@ -18,7 +18,10 @@
 }
 
 .cc-wrap{
+    width: 480px;
+    height: 500px;
 
+    border: 2px solid #ccc;
 }
 
 .cc-container {
