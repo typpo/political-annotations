@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index():
   return "Hello World!"
 
-@app.route("/people")
+@app.route("/legislature")
 def people():
   r = requests.get('http://congress.api.sunlightfoundation.com/legislators?chamber=senate&apikey=dde4e99ca38e411abbc7d13af84ecbc0')
   obj = json.loads(r.text)
