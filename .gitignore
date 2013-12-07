@@ -48,3 +48,5 @@ nosetests.xml
 # Rope
 .ropeproject
 
+# System 
+.DS_Store
