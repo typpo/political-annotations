@@ -32,10 +32,12 @@
 
   text-align: left;
 
-  margin-top: 20px;
-
   font-size: 11px;
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.cc_top {
+  margin-top: -20px !important;
 }
 
 .cc_box h1 {
@@ -52,7 +54,6 @@
   float: left;
   padding-right: 8px;
   padding-bottom: 8px;
-  margin-top: -20px;
 }
 
 .cc_box table tr {
@@ -95,6 +96,12 @@
 
 .cc_tweet_link {
   position: absolute;
-  right: 10px;
-  top: 50px
+  right: 7px;
+  top: 10px
+}
+
+.cc_fb_link {
+  position: absolute;
+  right: 30px;
+  top: 10px
 }
