@@ -86,7 +86,7 @@ var mouseenter_TIMEOUT_MS = 700;
       $box.html('Loading...');
       var $span = $(this);
       $box.css({
-        top: $span.offset().top - $('#cc_box').height() - 60,
+        top: $span.offset().top - $('#cc_box').height() - 70,
         left: $span.offset().left - $('#cc_box').width()/2 + $span.width(),
       }).on('mouseenter', function() {
         clearTimeout(t_hide);
