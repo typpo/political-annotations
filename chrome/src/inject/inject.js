@@ -6,7 +6,7 @@ console.log('Injected.');
 var BOX_TEMPLATE =
 '<div id="cc_box" class="cc_box">' +
   '<h1><%=name%></h1>' +
-  'Some description here......' +
+  '<p><%=contribs%></p>' +
 '</div>';
 
 var MOUSEOVER_TIMEOUT_MS = 700;
@@ -53,13 +53,30 @@ var MOUSEOVER_TIMEOUT_MS = 700;
   highlightPolititions(politicians);
   */
 
+  var contrib_cache = {};
   function bindDialogs() {
     var t_hide = null;
     $('.cc_highlight').on('mouseover', function(e) {
+      var $cc_high = $(this);
       if ($('#cc_box').length < 1) {
-        $('body').append(tmpl(BOX_TEMPLATE, {
-          name: $(this).text(),
-        }));
+        var name = $cc_high.text();
+        var url = 'http://localhost:5000/contribs?name=' + name;
+
+        var showInfo = function(data) {
+          $('body').append(tmpl(BOX_TEMPLATE, {
+            name: name,
+            contribs: JSON.stringify(data.results),
+          }));
+        }
+
+        if (contrib_cache[url]) {
+          showInfo(contrib_cache[url]);
+        } else {
+          $.getJSON(url, function(data) {
+            contrib_cache[url] = data;
+            showInfo(data);
+          });
+        }
       }
 
       var $box = $('#cc_box');
@@ -92,8 +109,8 @@ var MOUSEOVER_TIMEOUT_MS = 700;
       }
       if (data) {
         console.log('already have');
-        //callback();
-        //return;
+        callback();
+        return;
       }
       console.log('Loading senators');
 

@@ -26,11 +26,10 @@ def people():
 
 @app.route('/contribs')
 def contribs():
-  first = request.args.get('first', None)
-  last = request.args.get('last', None)
+  name = request.args.get('name', None)
   # bio id does not work for cory booker
   #r = requests.get('http://congress.api.sunlightfoundation.com/legislators?chamber=senate&bioguide_id=%s&apikey=dde4e99ca38e411abbc7d13af84ecbc0' % bio)
-  r = requests.get('http://transparencydata.com/api/1.0/entities.json?apikey=dde4e99ca38e411abbc7d13af84ecbc0&search=%s+%s&type=politician' % (first, last))
+  r = requests.get('http://transparencydata.com/api/1.0/entities.json?apikey=dde4e99ca38e411abbc7d13af84ecbc0&search=%s&type=politician' % (name.replace(' ', '+')))
   entities = json.loads(r.text)
   if len(entities) < 1:
     print entities
@@ -51,7 +50,7 @@ def contribs():
       })
 
   return jsonify({
-    'results': sorted(ret, key=lambda x: x['total_amount'])
+    'results': sorted(ret[:5], key=lambda x: x['total_amount'])
     })
 
   r = requests.get('http://transparencydata.com/api/1.0/aggregates/pol/4148b26f6f1c437cb50ea9ca4699417a/contributors.json?cycle=2012&limit=100&apikey=dde4e99ca38e411abbc7d13af84ecbc0')
