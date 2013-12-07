@@ -16,7 +16,7 @@ var BOX_CONTENT =
   '<% } %>' +
   '</table>';
 
-var MOUSEOVER_TIMEOUT_MS = 700;
+var mouseenter_TIMEOUT_MS = 700;
 
 (function() {
   console.log('Loaded.');
@@ -64,7 +64,7 @@ var MOUSEOVER_TIMEOUT_MS = 700;
 
   function bindDialogs() {
     var t_hide = null;
-    $('.cc_highlight').on('mouseover', function(e) {
+    $('.cc_highlight').on('mouseenter', function(e) {
       // Create box, if it doesn't exist
       var $box = $('#cc_box');
       if ($box.length < 1) {
@@ -77,12 +77,12 @@ var MOUSEOVER_TIMEOUT_MS = 700;
       $box.css({
         top: $span.offset().top - $('#cc_box').height() - 90,
         left: $span.offset().left - $('#cc_box').width()/2 + $span.width(),
-      }).on('mouseover', function() {
+      }).on('mouseenter', function() {
         clearTimeout(t_hide);
-      }).on('mouseout', function() {
+      }).on('mouseleave', function() {
         t_hide = setTimeout(function() {
           $box.hide();
-        }, MOUSEOVER_TIMEOUT_MS);
+        }, mouseenter_TIMEOUT_MS);
       }).show();
 
       // Load content
@@ -97,10 +97,10 @@ var MOUSEOVER_TIMEOUT_MS = 700;
 
       clearTimeout(t_hide);
 
-    }).on('mouseout', function() {
+    }).on('mouseleave', function() {
       t_hide = setTimeout(function() {
         $('#cc_box').hide();
-      }, MOUSEOVER_TIMEOUT_MS);
+      }, mouseenter_TIMEOUT_MS);
     });
   }
 
