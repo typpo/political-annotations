@@ -34,19 +34,18 @@ var mouseenter_TIMEOUT_MS = 700;
         return;
       }
 
-      var politicians = data.all_pols;
-      if (politicians.length < 1) {
+      if (data.all_pols.length < 1) {
         console.error('Where are the politicians?');
         return;
       }
 
-      highlightPolititions(politicians);
+      highlightPolititions(data.all_pols);
       bindDialogs();
     });
   });
 
   function highlightPolititions(pols) {
-  	var regex_str = '(' + politicians.split('|') + ')';
+  	var regex_str = '(' + pols.join('|') + ')';
 	  var regex = RegExp(regex_str, 'g');
 	  $('p').each(function() {
 	    this.innerHTML = this.innerHTML.replace(regex, '<span class="cc_highlight">$1</span>');
