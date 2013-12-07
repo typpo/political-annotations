@@ -20,8 +20,6 @@
 .cc-wrap{
     width: 480px;
     height: 500px;
-
-    border: 1px solid #ccc;
 }
 
 .cc-container {
@@ -50,31 +48,20 @@
     float: right;
 }
 
-cs-nav {
+.nav {
     margin-bottom: 20px;
     margin-left: 0;
     padding: 0px;
     list-style: none;
 }
 
-.tabbable:before,
-.tabbable:after {
-    display: table;
-    line-height: 0;
-    content: "";
+
+.tabs-left > .nav-tabs > li > a {
+    text-decoration: none;
 }
 
-
-.tabs-left > .nav-tabs > li,
-.tabs-right > .nav-tabs > li {
-    float: none;
-}
-
-.tabs-left > .nav-tabs > li > a,
-.tabs-right > .nav-tabs > li > a {
-    min-width: 74px;
-    margin-right: 0;
-    margin-bottom: 3px;
+.tabs-left > .nav-tabs > li > a:active {
+    color: #FFFFFF;
 }
 
 .tabs-left > .nav-tabs {
@@ -83,21 +70,35 @@ cs-nav {
     border-right: 1px solid #ddd;
 }
 
-.tabs-left > .nav-tabs > li > a {
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:focus {
+    color: #FFFFFF;
+    cursor: default;
+}
+
+
+.nav > li > a {
     margin-right: -1px;
     -webkit-border-radius: 4px 0 0 4px;
     -moz-border-radius: 4px 0 0 4px;
     border-radius: 4px 0 0 4px;
 }
 
-.tabs-left > .nav-tabs > li > a:hover,
-.tabs-left > .nav-tabs > li > a:focus {
-    border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+
+.tab-content {
+    float: right;
+    width: 360px;
 }
 
-.tabs-left > .nav-tabs .active > a,
-.tabs-left > .nav-tabs .active > a:hover,
-.tabs-left > .nav-tabs .active > a:focus {
-    border-color: #ddd transparent #ddd #ddd;
-    *border-right-color: #ffffff;
+
+.active {
+    background-color: #0088cc;
+    border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+    border: 1px solid #cccccc;
+    border-right: 0px;
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
+
 }
