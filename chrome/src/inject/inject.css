@@ -20,4 +20,25 @@
   border-radius:25px;
 
   box-shadow: 3px 3px 3px #888888;
+
+  text-align: left;
+
+  margin-top: 20px;
+}
+
+.cc_box table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.cc_box table tr {
+  border: 1px #ccc solid;
+}
+
+.cc_box table td {
+  padding: 5px;
+}
+
+.cc_box table td a {
+  color: #333;
 }

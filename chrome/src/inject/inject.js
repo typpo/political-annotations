@@ -9,8 +9,12 @@ var BOX_TEMPLATE =
 '</div>';
 
 var BOX_CONTENT =
-  '<h1><%=name%></h1>' +
-  '<p><%=contribs%></p>';
+  '<h1><%=name%></h1><hr/>' +
+  '<table>' +
+  '<p><% for (var i=0; i < contribs.length; i++) { %>' +
+    '<tr><td><a target="_blank" href="https://www.google.com/search?q=<%= contribs[i].name %>"><%= contribs[i].name %></a></td><td>$<%= contribs[i].total_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td></tr>' +
+  '<% } %>' +
+  '</table>';
 
 var MOUSEOVER_TIMEOUT_MS = 700;
 
@@ -69,7 +73,7 @@ var MOUSEOVER_TIMEOUT_MS = 700;
       $box.html('Loading...');
       var $span = $(this);
       $box.css({
-        top: $span.offset().top - $('#cc_box').height() - 75,
+        top: $span.offset().top - $('#cc_box').height() - 90,
         left: $span.offset().left - $('#cc_box').width()/2 + $span.width(),
       }).on('mouseover', function() {
         clearTimeout(t_hide);
@@ -85,7 +89,7 @@ var MOUSEOVER_TIMEOUT_MS = 700;
       fetchDetails(name, function(data) {
         $box.html(tmpl(BOX_CONTENT, {
           name: name,
-          contribs: JSON.stringify(data.results),
+          contribs: data.results,
         }));
       });
 

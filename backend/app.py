@@ -55,14 +55,14 @@ def contribs():
   ret = []
   for contrib in contributors:
     ret.append({
-      'direct_amount': contrib['direct_amount'],
-      'employee_amount': contrib['employee_amount'],
-      'total_amount': contrib['total_amount'],
+      'direct_amount': int(float(contrib['direct_amount'])),
+      'employee_amount': int(float(contrib['employee_amount'])),
+      'total_amount': int(float(contrib['total_amount'])),
       'name': contrib['name'],
       })
 
   return jsonify({
-    'results': sorted(ret[:5], key=lambda x: x['total_amount'])
+    'results': sorted(ret[:5], key=lambda x: x['total_amount'], reverse=True)
     })
 
   r = requests.get('http://transparencydata.com/api/1.0/aggregates/pol/4148b26f6f1c437cb50ea9ca4699417a/contributors.json?cycle=2012&limit=100&apikey=dde4e99ca38e411abbc7d13af84ecbc0')
