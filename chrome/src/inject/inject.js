@@ -68,6 +68,8 @@ var mouseenter_TIMEOUT_MS = 700;
   function bindDialogs() {
     var t_hide = null;
     $('.cc_highlight').on('mouseenter', function(e) {
+      clearTimeout(t_hide);
+
       // Create box, if it doesn't exist
       var $box = $('#cc_box');
       if ($box.length < 1) {
@@ -98,8 +100,6 @@ var mouseenter_TIMEOUT_MS = 700;
         }));
         clearTimeout(t_hide);
       });
-      clearTimeout(t_hide);
-
     }).on('mouseleave', function() {
       t_hide = setTimeout(function() {
         $('#cc_box').hide();
