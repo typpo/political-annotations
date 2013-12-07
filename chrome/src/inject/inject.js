@@ -64,19 +64,19 @@ var mouseenter_TIMEOUT_MS = 700;
         $box = $(tmpl(BOX_TEMPLATE, {})).appendTo('body');
       }
 
-      // Position box
       $box.html('Loading...');
-      var $span = $(this);
+
+      // Position box
       $box.css({
-        top: $span.offset().top - $('#cc_box').height() - 70,
-        left: $span.offset().left - $('#cc_box').width()/2 + $span.width(),
-      }).on('mouseenter', function() {
-        clearTimeout(t_hide);
-      }).on('mouseleave', function() {
+        top: $(this).offset().top - $('#cc_box').height() - 70,
+        left: $(this).offset().left - $('#cc_box').width()/2 + $(this).width() })
+      .on('mouseenter', function() {
+        clearTimeout(t_hide); })
+      .on('mouseleave', function() {
         t_hide = setTimeout(function() {
           $box.hide();
-        }, mouseenter_TIMEOUT_MS);
-      }).show();
+        }, mouseenter_TIMEOUT_MS); })
+      .show();
 
       // Load content
       var $cc_high = $(this);
@@ -120,11 +120,6 @@ var mouseenter_TIMEOUT_MS = 700;
     chrome.storage.local.get('synced', function(data) {
       if(chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError);
-        return;
-      }
-      if (data) {
-        console.log('already have');
-        callback();
         return;
       }
       console.log('Loading senators');
