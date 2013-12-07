@@ -9,12 +9,15 @@ var BOX_TEMPLATE =
 '</div>';
 
 var BOX_CONTENT =
-  '<h1><%=name%></h1><hr/>' +
+  '<h1><%=name%></h1>' +
+  '<div class="cc_content">' +
+  '<span class="cc_sub">Where\'s the money?</span>' +
   '<table>' +
-  '<p><% for (var i=0; i < contribs.length; i++) { %>' +
+  '<% for (var i=0; i < contribs.length; i++) { %>' +
     '<tr><td><a target="_blank" href="https://www.google.com/search?q=<%= contribs[i].name %>"><%= contribs[i].name %></a></td><td>$<%= commaSeparateNumber(contribs[i].total_amount) %></td></tr>' +
   '<% } %>' +
-  '</table>';
+  '</table>' +
+  '</div>';
 
 var mouseenter_TIMEOUT_MS = 700;
 
@@ -95,6 +98,7 @@ var mouseenter_TIMEOUT_MS = 700;
         }));
         clearTimeout(t_hide);
       });
+      clearTimeout(t_hide);
 
     }).on('mouseleave', function() {
       t_hide = setTimeout(function() {

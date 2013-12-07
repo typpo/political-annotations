@@ -9,25 +9,26 @@
 .cc_box {
   /* TODO other normal classes have to be overriden here */
   position: absolute;
-  width: 300px;
-  height: 160px;
+  width: 270px;
+  height: 150px;
   background-color: #fdfdfd;
   z-index: 9999;
 
   padding: 30px;
 
   border: 2px solid #ccc;
-  border-radius:25px;
+  border-radius: 15px;
 
   box-shadow: 3px 3px 3px #888888;
 
   text-align: left;
 
   margin-top: 20px;
+
+  font-size: 12px;
 }
 
 .cc_box table {
-  margin-top: 20px;
   width: 100%;
 }
 
@@ -37,9 +38,20 @@
 
 .cc_box table td {
   padding: 5px;
+  padding-bottom: 0;
 }
 
 .cc_box table td a {
   color: #333;
   text-decoration: underline;
+}
+
+.cc_content {
+  margin-top: 20px;
+}
+
+.cc_sub {
+  color: #ccc;
+  font-weight: strong;
+  margin-bottom:5px;
 }
