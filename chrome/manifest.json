@@ -18,7 +18,8 @@
   },
   "permissions": [
     "http://*/*",
-    "https://*/*"
+    "https://*/*",
+    "storage"
   ],
   "content_scripts": [
     {
@@ -40,5 +41,6 @@
         "src/inject/inject.js"
       ]
     }
-  ]
+  ],
+  "web_accessible_resources": ["src/inject/senate.js"]
 }
