@@ -12,7 +12,7 @@ var BOX_CONTENT =
   '<h1><%=name%></h1><hr/>' +
   '<table>' +
   '<p><% for (var i=0; i < contribs.length; i++) { %>' +
-    '<tr><td><a target="_blank" href="https://www.google.com/search?q=<%= contribs[i].name %>"><%= contribs[i].name %></a></td><td>$<%= contribs[i].total_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td></tr>' +
+    '<tr><td><a target="_blank" href="https://www.google.com/search?q=<%= contribs[i].name %>"><%= contribs[i].name %></a></td><td>$<%= commaSeparateNumber(contribs[i].total_amount) %></td></tr>' +
   '<% } %>' +
   '</table>';
 
@@ -185,4 +185,11 @@ function tmpl(str, data) {
 
   // Provide some basic currying to the user
   return data ? fn( data ) : fn;
+}
+
+function commaSeparateNumber(val){
+  while (/(\d+)(\d{3})/.test(val.toString())){
+    val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+  }
+  return val;
 }
