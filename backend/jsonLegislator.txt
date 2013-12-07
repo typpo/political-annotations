@@ -1,0 +1,44 @@
+{
+    "results": [
+        {
+            "bioguide_id": "B001288",
+            "birthday": "1969-04-27",
+            "chamber": "senate",
+            "contact_form": null,
+            "crp_id": "",
+            "fax": null,
+            "fec_ids": null,
+            "first_name": "Cory",
+            "gender": "M",
+            "govtrack_id": "412598",
+            "in_office": true,
+            "last_name": "Booker",
+            "leadership_role": null,
+            "lis_id": "S370",
+            "middle_name": "Anthony",
+            "name_suffix": null,
+            "nickname": null,
+            "ocd_id": "ocd-division/country:us/state:nj",
+            "office": "141 Hart Senate Office Building",
+            "party": "D",
+            "phone": "202-224-3224",
+            "senate_class": 2,
+            "state": "NJ",
+            "state_name": "New Jersey",
+            "state_rank": "junior",
+            "term_end": "2015-01-03",
+            "term_start": "2013-10-31",
+            "thomas_id": "02194",
+            "title": "Sen",
+            "twitter_id": "SenBookerOfc",
+            "votesmart_id": 76151,
+            "website": "http://booker.senate.gov"
+        }
+    ],
+    "count": 1,
+    "page": {
+        "count": 1,
+        "per_page": 20,
+        "page": 1
+    }
+}
