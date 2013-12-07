@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import json
 import requests
 from flask import Flask, jsonify
 app = Flask(__name__)
@@ -10,7 +11,8 @@ def index():
 @app.route("/people")
 def people():
   r = requests.get('http://congress.api.sunlightfoundation.com/legislators?chamber=senate&apikey=dde4e99ca38e411abbc7d13af84ecbc0')
-  return jsonify(r.text)
+  obj = json.loads(r.text)
+  return jsonify(obj)
 
   #JSON decode into list = total list of senators
   #temp JSON or list = return
