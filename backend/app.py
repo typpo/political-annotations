@@ -31,6 +31,12 @@ def people():
     returnObject.append(temp)
   return jsonify({'results':returnObject})
 
+@app.route('/person')
+def person():
+  d = contact()
+  p = contribs()
+  return 
+
 @app.route('/contact')
 def contact():
   id = request.args.get('id', None)
