@@ -8,6 +8,11 @@ app = Flask(__name__)
 def index():
   return "Hello World!"
 
+def adjust_first_name(name):
+  if name == 'Charles':
+    return 'Chuck'
+  return name
+
 @app.route("/legislature")
 def people():
   r = requests.get('http://congress.api.sunlightfoundation.com/legislators?per_page=all&chamber=senate&apikey=dde4e99ca38e411abbc7d13af84ecbc0')
@@ -15,7 +20,7 @@ def people():
   returnObject = []
   for person in obj['results']:
     temp = {
-        'first_name': person['first_name'],
+        'first_name': adjust_first_name(person['first_name']),
         'last_name': person['last_name'],
         'middle_name': person['middle_name'],
         'bioguide_id': person['bioguide_id']

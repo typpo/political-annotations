@@ -53,30 +53,18 @@ var MOUSEOVER_TIMEOUT_MS = 700;
   highlightPolititions(politicians);
   */
 
-  var contrib_cache = {};
   function bindDialogs() {
     var t_hide = null;
     $('.cc_highlight').on('mouseover', function(e) {
       var $cc_high = $(this);
       if ($('#cc_box').length < 1) {
         var name = $cc_high.text();
-        var url = 'http://localhost:5000/contribs?name=' + name;
-
-        var showInfo = function(data) {
+        fetchDetails(name, function(data) {
           $('body').append(tmpl(BOX_TEMPLATE, {
             name: name,
             contribs: JSON.stringify(data.results),
           }));
-        }
-
-        if (contrib_cache[url]) {
-          showInfo(contrib_cache[url]);
-        } else {
-          $.getJSON(url, function(data) {
-            contrib_cache[url] = data;
-            showInfo(data);
-          });
-        }
+        });
       }
 
       var $box = $('#cc_box');
@@ -100,6 +88,20 @@ var MOUSEOVER_TIMEOUT_MS = 700;
     });
   }
 
+  var contrib_cache = {};
+  function fetchDetails(name, callback) {
+    var url = 'http://localhost:5000/contribs?name=' + name;
+    if (contrib_cache[url]) {
+      callback(contrib_cache[url]);
+    } else {
+      $.getJSON(url, function(data) {
+        contrib_cache[url] = data;
+        callback(data);
+      });
+    }
+
+  }
+
   function loadSenators(callback) {
     console.log('Checking senators');
     chrome.storage.local.get('synced', function(data) {
@@ -107,11 +109,13 @@ var MOUSEOVER_TIMEOUT_MS = 700;
         console.error(chrome.runtime.lastError);
         return;
       }
+      /*
       if (data) {
         console.log('already have');
         callback();
         return;
       }
+      */
       console.log('Loading senators');
 
       $.getJSON('http://localhost:5000/legislature', function(data) {
