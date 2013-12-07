@@ -50,3 +50,7 @@ nosetests.xml
 
 # System 
 .DS_Store
+
+.idea/workspace.xml
+
+backend/dummy_cache
