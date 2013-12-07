@@ -1,6 +1,14 @@
 
-._cc_highlight {
+.cc_highlight {
   text-decoration: underline;
   color: red;
   cursor: pointer;
+}
+
+.cc_box {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background-color: black;
+  color: white;
 }
