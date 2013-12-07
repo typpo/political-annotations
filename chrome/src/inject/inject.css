@@ -1,0 +1,21 @@
+
+.cc_highlight {
+  text-decoration: underline;
+  color: red;
+  cursor: pointer;
+}
+
+.cc_box {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background-color: #eee;
+  z-index: 9999;
+
+  padding: 30px;
+
+  border: 2px solid #ccc;
+  border-radius:25px;
+
+  box-shadow: 3px 3px 3px #888888;
+}
