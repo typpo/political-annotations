@@ -7,15 +7,33 @@
 
 .cc_box {
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 480px;
+  max-height: 300px;
   background-color: #eee;
   z-index: 9999;
-
-  padding: 30px;
-
+  padding: 5px;
   border: 2px solid #ccc;
-  border-radius:25px;
-
+  border-radius:10px;
   box-shadow: 3px 3px 3px #888888;
+}
+
+.cc-wrap{
+
+}
+
+.cc-container {
+
+}
+
+.cc-tabbable{
+    width: 120px;
+    float: left;
+}
+
+.cc-content{
+    width: 360px;
+}
+
+.cc-logo{
+    float: right;
 }

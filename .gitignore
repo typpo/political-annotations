@@ -47,3 +47,5 @@ nosetests.xml
 # Rope
 .ropeproject
 
+
+.idea/workspace.xml
