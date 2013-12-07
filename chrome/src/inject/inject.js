@@ -21,7 +21,7 @@ var MOUSEOVER_TIMEOUT_MS = 700;
 		for (pol in pols) {
       var polEl = $(":contains('"+pol+"')");
       var replacement = $('<span class="cc_highlight/>');
-      polEL.html(polEl.html().replace(pol, replacement.html(pol)));
+      polEl.html(polEl.html().replace(pol, replacement.html(pol)));
     }
   }
 
