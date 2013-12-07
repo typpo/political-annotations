@@ -1,11 +1,13 @@
 
 .cc_highlight {
-  text-decoration: underline;
-  color: red;
+  text-decoration: none;
+  border-bottom: 1px dashed #000;
+  color: purple;
   cursor: pointer;
 }
 
 .cc_box {
+  /* TODO other normal classes have to be overriden here */
   position: absolute;
   width: 300px;
   height: 300px;
