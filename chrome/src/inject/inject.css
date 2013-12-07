@@ -1,4 +1,13 @@
+/* Reset */
+.cc_box{}.cc_box div,.cc_box span,.cc_box applet,.cc_box object,.cc_box iframe,.cc_box h1,.cc_box h2,.cc_box h3,.cc_box h4,.cc_box h5,.cc_box h6,.cc_box p,.cc_box blockquote,.cc_box pre,.cc_box a,.cc_box abbr,.cc_box acronym,.cc_box address,.cc_box big,.cc_box cite,.cc_box code,.cc_box del,.cc_box dfn,.cc_box em,.cc_box img,.cc_box ins,.cc_box kbd,.cc_box q,.cc_box s,.cc_box samp,.cc_box small,.cc_box strike,.cc_box strong,.cc_box sub,.cc_box sup,.cc_box tt,.cc_box var,.cc_box b,.cc_box u,.cc_box i,.cc_box center,.cc_box dl,.cc_box dt,.cc_box dd,.cc_box ol,.cc_box ul,.cc_box li,.cc_box fieldset,.cc_box form,.cc_box label,.cc_box legend,.cc_box table,.cc_box caption,.cc_box tbody,.cc_box tfoot,.cc_box thead,.cc_box tr,.cc_box th,.cc_box td,.cc_box article,.cc_box aside,.cc_box canvas,.cc_box details,.cc_box embed,.cc_box figure,.cc_box figcaption,.cc_box footer,.cc_box header,.cc_box hgroup,.cc_box menu,.cc_box nav,.cc_box output,.cc_box ruby,.cc_box section,.cc_box summary,.cc_box time,.cc_box mark,.cc_box audio,.cc_box video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}
+.cc_box article,.cc_box aside,.cc_box details,.cc_box figcaption,.cc_box figure,.cc_box footer,.cc_box header,.cc_box hgroup,.cc_box menu,.cc_box nav,.cc_box section{display:block}
+.cc_box body{line-height:1}
+.cc_box ol,.cc_box ul{list-style:none}
+.cc_box blockquote,.cc_box q{quotes:none}
+.cc_box blockquote:before,.cc_box blockquote:after,.cc_box q:before,.cc_box q:after{content:'';content:none}
+.cc_box table{border-collapse:collapse;border-spacing:0}
 
+/* Normal styles */
 .cc_highlight {
   text-decoration: none;
   border-bottom: 1px dashed #000;
@@ -10,7 +19,7 @@
   /* TODO other normal classes have to be overriden here */
   position: absolute;
   width: 270px;
-  height: 150px;
+  height: 180px;
   background-color: #fdfdfd;
   z-index: 9999;
 
@@ -28,8 +37,20 @@
   font-size: 12px;
 }
 
+.cc_box h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .cc_box table {
   width: 100%;
+}
+
+.cc_box img {
+  float: left;
+  padding-right: 8px;
+  padding-bottom: 8px;
+  margin-top: -20px;
 }
 
 .cc_box table tr {
@@ -47,7 +68,12 @@
 }
 
 .cc_content {
+  width: 100%;
   margin-top: 20px;
+  clear:both;
+  float:left;
+  position:relative;
+  overflow: hidden;
 }
 
 .cc_sub {
@@ -55,3 +81,13 @@
   font-weight: strong;
   margin-bottom:5px;
 }
+
+.cc_arrow_down {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+
+  border-top: 20px solid #f00;
+}
+

@@ -9,7 +9,7 @@ var BOX_TEMPLATE =
 '</div>';
 
 var BOX_CONTENT =
-  '<h1><%=name%></h1>' +
+  '<div class="cc_top"><img src="https://usercontent.googleapis.com/freebase/v1/image/en/<%= name.toLowerCase().replace(\' \', \'_\') %>"/><h1><%=name%></h1></div>' +
   '<div class="cc_content">' +
   '<span class="cc_sub">Where\'s the money?</span>' +
   '<table>' +
@@ -17,7 +17,7 @@ var BOX_CONTENT =
     '<tr><td><a target="_blank" href="https://www.google.com/search?q=<%= contribs[i].name %>"><%= contribs[i].name %></a></td><td>$<%= commaSeparateNumber(contribs[i].total_amount) %></td></tr>' +
   '<% } %>' +
   '</table>' +
-  '</div>';
+  '</div><div class="cc_arrow_down"></div>';
 
 var mouseenter_TIMEOUT_MS = 700;
 
@@ -130,13 +130,11 @@ var mouseenter_TIMEOUT_MS = 700;
         console.error(chrome.runtime.lastError);
         return;
       }
-      /*
       if (data) {
         console.log('already have');
         callback();
         return;
       }
-      */
       console.log('Loading senators');
 
       $.getJSON('http://localhost:5000/legislature', function(data) {
