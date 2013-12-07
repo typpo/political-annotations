@@ -4,6 +4,9 @@ import requests
 from flask import Flask, jsonify, request
 app = Flask(__name__)
 
+
+freebase_apikey = 'AIzaSyBrVttmcZFdJIRntbpm6WTI_QzCm3Vpi04'
+
 @app.route("/")
 def index():
   return "Hello World!"
