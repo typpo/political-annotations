@@ -5,7 +5,7 @@
 console.log('Injected.');
 
 var BOX_TEMPLATE = '<div id="cc_box" class="cc_box">' +
-  '<h1>{{name}}</h1>' +
+  '<h1><%=name%></h1>' +
   'Some description here......' +
 '</div>';
 
@@ -27,8 +27,8 @@ var BOX_TEMPLATE = '<div id="cc_box" class="cc_box">' +
     }
 
     $('#cc_box').css({
-        top: e.clientY - 150,
-        left: e.clientX - 300,
+        top: e.clientY - 350,
+        left: e.clientX - 150,
       });
   });
 

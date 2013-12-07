@@ -9,6 +9,12 @@
   position: absolute;
   width: 400px;
   height: 400px;
-  background-color: black;
-  color: white;
+  background-color: #eee;
+  z-index: 9999;
+
+  padding: 30px;
+
+  border: 2px solid #ccc;
+  border-radius:25px;
+
 }
