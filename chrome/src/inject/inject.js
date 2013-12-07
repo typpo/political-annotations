@@ -3,7 +3,7 @@
 
 console.log('Injected.');
 
-var BOX_TEMPLATE = 
+var BOX_TEMPLATE =
 '<div id="cc_box" class="cc_box">' +
   '<h1><%=name%></h1>' +
   'Some description here......' +
@@ -21,9 +21,10 @@ var MOUSEOVER_TIMEOUT_MS = 700;
 		for (pol in pols) {
       var polEl = $(":contains('"+pol+"')");
       var replacement = $('<span class="cc_highlight/>');
-      polEL.html(polEl.html.replace(pol, replacement.html(pol));
-	}}
-  
+      polEL.html(polEl.html().replace(pol, replacement.html(pol)));
+    }
+  }
+
   highlightPolititions(politicians);
 
   // Build/request on hover
