@@ -14,7 +14,7 @@ def people():
   obj = json.loads(r.text)
   returnObject = list()
   i = 0
-  while(i < len(obj)):
+  while(i < len(obj['results'])):
     fname = obj['results'][i]['first_name']
     lname = obj['results'][i]['last_name']
     mname = obj['results'][i]['middle_name']
