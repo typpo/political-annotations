@@ -55,18 +55,6 @@ var mouseenter_TIMEOUT_MS = 700;
     });
   });
 
-  /*
-  function highlightPolititions(pols) {
-		for (pol in pols) {
-      var polEl = $(":contains('"+pol+"')");
-      var replacement = $('<span class="cc_highlight/>');
-      polEl.html(polEl.html().replace(pol, replacement.html(pol)));
-    }
-  }
-
-  highlightPolititions(politicians);
-  */
-
   function bindDialogs() {
     var t_hide = null;
     $('.cc_highlight').on('mouseenter', function(e) {
@@ -83,7 +71,7 @@ var mouseenter_TIMEOUT_MS = 700;
       var $span = $(this);
       $box.css({
         top: $span.offset().top - $('#cc_box').height() - 70,
-        left: $span.offset().left - $('#cc_box').width()/2 + $span.width(),
+        left: $span.offset().left - $('#cc_box').width()/2 + $span.width()
       }).on('mouseenter', function() {
         clearTimeout(t_hide);
       }).on('mouseleave', function() {
@@ -99,7 +87,7 @@ var mouseenter_TIMEOUT_MS = 700;
         $box.html(tmpl(BOX_CONTENT, {
           name: name,
           contact: data.contact,
-          contribs: data.contribs,
+          contribs: data.contribs
         }));
         clearTimeout(t_hide);
       });
@@ -136,27 +124,32 @@ var mouseenter_TIMEOUT_MS = 700;
         console.error(chrome.runtime.lastError);
         return;
       }
-      if (data) {
-        console.log('already have');
-        callback();
-        return;
-      }
-      console.log('Loading senators');
 
-      $.getJSON('http://localhost:5000/legislature', function(data) {
-        var legislators = data.results;
-        var all_pols = [];
-        for (var i=0; i < legislators.length; i++) {
-          var legislator = legislators[i];
-          var key = legislator.first_name + ' ' + legislator.last_name;
-          all_pols.push(key);
-          var obj = {};
-          obj[key] = legislator;
-          chrome.storage.local.set(obj);
-        }
-        chrome.storage.local.set({'all_pols': all_pols});
-        callback();
-      });
+      console.log('Loading senators');
+        $.ajax({
+            url: "http://localhost:5000/legislature",
+            dataType: 'json',
+            timeout: 10000,
+            success:  function(data){
+                var legislators = data.results;
+                var all_pols = [];
+                for (var i=0; i < legislators.length; i++) {
+                    var legislator = legislators[i];
+                    var key = legislator.first_name + ' ' + legislator.last_name;
+                    all_pols.push(key);
+                    var obj = {};
+                    obj[key] = legislator;
+                    chrome.storage.local.set(obj);
+                }
+                chrome.storage.local.set({'all_pols': all_pols});
+                callback();
+            },
+            error: function()
+            {
+                console.log("error loading url");
+                $('#cc_box').empty().html("There was error loading contents.  Please refresh the page and try again.");
+            }
+        });
     });
   }
 
