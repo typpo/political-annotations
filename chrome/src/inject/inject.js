@@ -1,13 +1,16 @@
 // Test me:
 // http://www.factcheck.org/2013/12/boehner-vs-castro-on-the-exchange/
+// http://www.huffingtonpost.com/2013/08/13/cory-booker-rand-paul-ted-cruz_n_3749389.html
 
 console.log('Injected.');
 
 var BOX_TEMPLATE =
 '<div id="cc_box" class="cc_box">' +
-  '<h1><%=name%></h1>' +
-  '<p><%=contribs%></p>' +
 '</div>';
+
+var BOX_CONTENT =
+  '<h1><%=name%></h1>' +
+  '<p><%=contribs%></p>';
 
 var MOUSEOVER_TIMEOUT_MS = 700;
 
@@ -53,33 +56,17 @@ var MOUSEOVER_TIMEOUT_MS = 700;
   highlightPolititions(politicians);
   */
 
-  var contrib_cache = {};
   function bindDialogs() {
     var t_hide = null;
     $('.cc_highlight').on('mouseover', function(e) {
-      var $cc_high = $(this);
-      if ($('#cc_box').length < 1) {
-        var name = $cc_high.text();
-        var url = 'http://localhost:5000/contribs?name=' + name;
-
-        var showInfo = function(data) {
-          $('body').append(tmpl(BOX_TEMPLATE, {
-            name: name,
-            contribs: JSON.stringify(data.results),
-          }));
-        }
-
-        if (contrib_cache[url]) {
-          showInfo(contrib_cache[url]);
-        } else {
-          $.getJSON(url, function(data) {
-            contrib_cache[url] = data;
-            showInfo(data);
-          });
-        }
+      // Create box, if it doesn't exist
+      var $box = $('#cc_box');
+      if ($box.length < 1) {
+        $box = $(tmpl(BOX_TEMPLATE, {})).appendTo('body');
       }
 
-      var $box = $('#cc_box');
+      // Position box
+      $box.html('Loading...');
       var $span = $(this);
       $box.css({
         top: $span.offset().top - $('#cc_box').height() - 75,
@@ -88,16 +75,43 @@ var MOUSEOVER_TIMEOUT_MS = 700;
         clearTimeout(t_hide);
       }).on('mouseout', function() {
         t_hide = setTimeout(function() {
-          $box.remove();
+          $box.hide();
         }, MOUSEOVER_TIMEOUT_MS);
+      }).show();
+
+      // Load content
+      var $cc_high = $(this);
+      var name = $cc_high.text();
+      fetchDetails(name, function(data) {
+        $box.html(tmpl(BOX_CONTENT, {
+          name: name,
+          contribs: JSON.stringify(data.results),
+        }));
       });
+
       clearTimeout(t_hide);
 
     }).on('mouseout', function() {
       t_hide = setTimeout(function() {
-        $('#cc_box').remove();
+        $('#cc_box').hide();
       }, MOUSEOVER_TIMEOUT_MS);
     });
+  }
+
+  var contrib_cache = {};
+  function fetchDetails(name, callback) {
+    var url = 'http://localhost:5000/contribs?name=' + name;
+    if (contrib_cache[url]) {
+      setTimeout(function() {
+        callback(contrib_cache[url]);
+      }, 0);
+    } else {
+      $.getJSON(url, function(data) {
+        contrib_cache[url] = data;
+        callback(data);
+      });
+    }
+
   }
 
   function loadSenators(callback) {
@@ -107,11 +121,13 @@ var MOUSEOVER_TIMEOUT_MS = 700;
         console.error(chrome.runtime.lastError);
         return;
       }
+      /*
       if (data) {
         console.log('already have');
         callback();
         return;
       }
+      */
       console.log('Loading senators');
 
       $.getJSON('http://localhost:5000/legislature', function(data) {
