@@ -10,7 +10,7 @@
   /* TODO other normal classes have to be overriden here */
   position: absolute;
   width: 300px;
-  height: 300px;
+  height: 200px;
   background-color: #fdfdfd;
   z-index: 9999;
 

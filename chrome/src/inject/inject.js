@@ -42,7 +42,9 @@ var MOUSEOVER_TIMEOUT_MS = 700;
       }
       regex_str += ')';
       var regex = RegExp(regex_str, 'g');
-      document.body.innerHTML = document.body.innerHTML.replace(regex, '<span class="cc_highlight">$1</span>');
+      $('p').each(function() {
+        this.innerHTML = this.innerHTML.replace(regex, '<span class="cc_highlight">$1</span>');
+      });
 
       bindDialogs();
     });
