@@ -23,6 +23,14 @@ def people():
     returnObject.append(temp)
   return jsonify({'results':returnObject})
 
+@app.route('/contact')
+def contact():
+  id = request.args.get('id', None)
+  print id
+  r = requests.get('http://congress.api.sunlightfoundation.com/legislators?bioguide_id=%s&apikey=dde4e99ca38e411abbc7d13af84ecbc0' % id)
+  data = json.loads(r.text)
+  return jsonify({'results':data['results']})
+
 @app.route('/contribs')
 def contribs():
   name = request.args.get('name', None)
