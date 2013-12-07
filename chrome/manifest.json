@@ -36,7 +36,7 @@
         "https://*/*"
       ],
       "js": [
-        "js/jquery/jquery.min.js",
+        "js/jquery/jquery.js",
         "src/inject/inject.js"
       ]
     }

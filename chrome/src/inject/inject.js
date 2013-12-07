@@ -1,6 +1,7 @@
-console.log('Injected');
+console.log('Injected.');
 
 (function() {
+  console.log('Loaded.');
   var $ = jQuery.noConflict();
 
   // Get politicians
@@ -9,4 +10,6 @@ console.log('Injected');
 
   // Build/request on hover
 
+
+  console.log('Done.');
 })(jQuery);
