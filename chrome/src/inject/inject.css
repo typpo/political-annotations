@@ -19,7 +19,7 @@
   /* TODO other normal classes have to be overriden here */
   position: absolute;
   width: 270px;
-  height: 180px;
+  height: 190px;
   background-color: #fdfdfd;
   z-index: 9999;
 
@@ -50,6 +50,7 @@
 
 .cc_box table {
   width: 100%;
+  margin-bottom: 2px;
 }
 
 .cc_box img {
@@ -82,8 +83,15 @@
 }
 
 .cc_sub {
-  color: #ccc;
-  font-weight: strong;
+  color: #ccc !important;
+  font-weight: strong !important;
+  margin-bottom:5px;
+}
+
+.cc_sub a {
+  color: #ccc !important;
+  font-weight: strong !important;
+  text-decoration: underline;
   margin-bottom:5px;
 }
 

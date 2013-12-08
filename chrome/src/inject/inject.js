@@ -6,8 +6,12 @@ var BOX_TEMPLATE =
 
 var BOX_CONTENT =
   '<div class="cc_top"><img src="https://usercontent.googleapis.com/freebase/v1/image/en/<%= name.toLowerCase().replace(\' \', \'_\') %>"/><h1><%=name%></h1>' +
+  '<% if (contact.twitter_id) { %>' +
   '<a class="cc_tweet_link" target="_blank" href="http://twitter.com/<%= contact.twitter_id %>"><img class="cc_twitter" src="http://s.huffpost.com/images/icons/twitter-icon-vsmall.png"/></a>' +
-  '<a class="cc_fb_link" target="_blank" href="http://facebook.com"><img class="cc_facebook" src="http://i.imgur.com/inGem0b.png"/></a>' +
+  '<% } %>' +
+  '<% if (contact.facebook_id) { %>' +
+  '<a class="cc_fb_link" target="_blank" href="http://facebook.com/<%= contact.facebook_id %>"><img class="cc_facebook" src="http://i.imgur.com/inGem0b.png"/></a>' +
+  '<% } %>' +
   '<%= capitalize(contact.state_rank) %> Senator, <%= contact.state_name %> (<%= contact.party %>)<br>' +
   'Phone: <a href="tel:<%= contact.phone %>"><%= contact.phone %></a><br>' +
   'Site: <a href="<%= contact.website %>"><%= contact.website %></a>' +
@@ -19,9 +23,10 @@ var BOX_CONTENT =
     '<tr><td><a target="_blank" href="https://www.google.com/search?q=<%= contribs[i].name %>"><%= contribs[i].name %></a></td><td>$<%= commaSeparateNumber(contribs[i].total_amount) %></td></tr>' +
   '<% } %>' +
   '</table>' +
+  '<span class="cc_sub cc_bottom"><a target="_blank" href="http://www.opensecrets.org/usearch/?q=<%= name.replace(\' \', \'+\')  %>">See more</a></span>' +
   '</div><div class="cc_arrow_down"></div>';
 
-var mouseenter_TIMEOUT_MS = 700;
+var MOUSE_TIMEOUT_MS = 700;
 
 (function() {
   console.log('Loaded.');
@@ -52,8 +57,8 @@ var mouseenter_TIMEOUT_MS = 700;
 	  });
   }
 
+  var t_hide = null;
   function bindDialogs() {
-    var t_hide = null;
     $('.cc_highlight').on('mouseenter', function(e) {
       clearTimeout(t_hide);
 
@@ -68,14 +73,14 @@ var mouseenter_TIMEOUT_MS = 700;
       // Position box
       $box.css({
         top: $(this).offset().top - $('#cc_box').height() - 70,
-        left: $(this).offset().left - $('#cc_box').width()/2 + $(this).width() })
-      .on('mouseenter', function() {
-        clearTimeout(t_hide); })
-      .on('mouseleave', function() {
+        left: $(this).offset().left - $('#cc_box').width()/2 + $(this).width()
+      }).on('mouseenter', function() {
+        clearTimeout(t_hide);
+      }).on('mouseleave', function() {
         t_hide = setTimeout(function() {
           $box.hide();
-        }, mouseenter_TIMEOUT_MS); })
-      .show();
+        }, MOUSE_TIMEOUT_MS);
+      }).show();
 
       // Load content
       var $cc_high = $(this);
@@ -91,7 +96,7 @@ var mouseenter_TIMEOUT_MS = 700;
     }).on('mouseleave', function() {
       t_hide = setTimeout(function() {
         $('#cc_box').hide();
-      }, mouseenter_TIMEOUT_MS);
+      }, MOUSE_TIMEOUT_MS);
     });
   }
 
