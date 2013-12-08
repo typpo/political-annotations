@@ -50,6 +50,7 @@
 
 .cc_box table {
   width: 100%;
+  margin-bottom: 2px;
 }
 
 .cc_box img {
@@ -79,10 +80,6 @@
   float:left;
   position:relative;
   overflow: hidden;
-}
-
-.cc_sub.cc_bottom {
-  padding-top: 3px;
 }
 
 .cc_sub {

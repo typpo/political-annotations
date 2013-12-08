@@ -6,8 +6,12 @@ var BOX_TEMPLATE =
 
 var BOX_CONTENT =
   '<div class="cc_top"><img src="https://usercontent.googleapis.com/freebase/v1/image/en/<%= name.toLowerCase().replace(\' \', \'_\') %>"/><h1><%=name%></h1>' +
+  '<% if (contact.twitter_id) { %>' +
   '<a class="cc_tweet_link" target="_blank" href="http://twitter.com/<%= contact.twitter_id %>"><img class="cc_twitter" src="http://s.huffpost.com/images/icons/twitter-icon-vsmall.png"/></a>' +
-  '<a class="cc_fb_link" target="_blank" href="http://facebook.com"><img class="cc_facebook" src="http://i.imgur.com/inGem0b.png"/></a>' +
+  '<% } %>' +
+  '<% if (contact.facebook_id) { %>' +
+  '<a class="cc_fb_link" target="_blank" href="http://facebook.com/<%= contact.facebook_id %>"><img class="cc_facebook" src="http://i.imgur.com/inGem0b.png"/></a>' +
+  '<% } %>' +
   '<%= capitalize(contact.state_rank) %> Senator, <%= contact.state_name %> (<%= contact.party %>)<br>' +
   'Phone: <a href="tel:<%= contact.phone %>"><%= contact.phone %></a><br>' +
   'Site: <a href="<%= contact.website %>"><%= contact.website %></a>' +
