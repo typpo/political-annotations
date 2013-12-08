@@ -1,8 +1,8 @@
 {
-  "name": "Political Annotations",
+  "name": "Candid Candidates",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "Inline political annotations.",
+  "description": "Ever wonder where politicians get their money? Candidate Candidates makes it easy to see how senators get their money, and makes it possible to contact senators from the news article you're reading.",
   "homepage_url": "http://lincolnlabs.com",
   "icons": {
     "16": "icons/icon16.png",
