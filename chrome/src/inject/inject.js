@@ -103,7 +103,7 @@ var MOUSE_TIMEOUT_MS = 700;
   var contrib_cache = {};
   function fetchDetails(name, callback) {
     chrome.storage.local.get(name, function(data) {
-      var url = 'http://localhost:5000/person?name=' + name + '&id=' + data[name].bioguide_id;
+      var url = 'http://not.kru.pt/person?name=' + name + '&id=' + data[name].bioguide_id;
       if (contrib_cache[url]) {
         setTimeout(function() {
           callback(contrib_cache[url]);
@@ -128,7 +128,7 @@ var MOUSE_TIMEOUT_MS = 700;
       }
       console.log('Loading senators');
         $.ajax({
-            url: "http://localhost:5000/legislature",
+            url: "http://not.kru.pt/legislature",
             dataType: 'json',
             timeout: 10000,
             success:  function(data){
