@@ -1,3 +1,10 @@
+Candid Candidates
+---
+
+This is a chrome extension that allows you to hover over the names of politicians in news articles you read to show contextual information, including contact info and a list of political contributors.
+
+{% img http://i.imgur.com/grNUT61.png %}
+
 Test me:
 - http://www.huffingtonpost.com/2013/08/13/cory-booker-rand-paul-ted-cruz_n_3749389.html
 - http://www.huffingtonpost.com/2013/11/09/patty-murray-budget-_n_4242768.html
