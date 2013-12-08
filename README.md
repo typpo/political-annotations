@@ -3,6 +3,9 @@ Candid Candidates
 
 This is a chrome extension that allows you to hover over the names of politicians in news articles you read to show contextual information, including contact info and a list of political contributors.
 
+Screenshot in action:
+
+
 ![in action](http://i.imgur.com/EHthO0D.png)
 
 
