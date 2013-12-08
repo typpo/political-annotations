@@ -26,7 +26,7 @@ var BOX_CONTENT =
   '<span class="cc_sub cc_bottom"><a target="_blank" href="http://www.opensecrets.org/usearch/?q=<%= name.replace(\' \', \'+\')  %>">See more</a></span>' +
   '</div><div class="cc_arrow_down"></div>';
 
-var mouseenter_TIMEOUT_MS = 700;
+var MOUSE_TIMEOUT_MS = 700;
 
 (function() {
   console.log('Loaded.');
@@ -57,8 +57,8 @@ var mouseenter_TIMEOUT_MS = 700;
 	  });
   }
 
+  var t_hide = null;
   function bindDialogs() {
-    var t_hide = null;
     $('.cc_highlight').on('mouseenter', function(e) {
       clearTimeout(t_hide);
 
@@ -73,14 +73,14 @@ var mouseenter_TIMEOUT_MS = 700;
       // Position box
       $box.css({
         top: $(this).offset().top - $('#cc_box').height() - 70,
-        left: $(this).offset().left - $('#cc_box').width()/2 + $(this).width() })
-      .on('mouseenter', function() {
-        clearTimeout(t_hide); })
-      .on('mouseleave', function() {
+        left: $(this).offset().left - $('#cc_box').width()/2 + $(this).width()
+      }).on('mouseenter', function() {
+        clearTimeout(t_hide);
+      }).on('mouseleave', function() {
         t_hide = setTimeout(function() {
           $box.hide();
-        }, mouseenter_TIMEOUT_MS); })
-      .show();
+        }, MOUSE_TIMEOUT_MS);
+      }).show();
 
       // Load content
       var $cc_high = $(this);
@@ -96,7 +96,7 @@ var mouseenter_TIMEOUT_MS = 700;
     }).on('mouseleave', function() {
       t_hide = setTimeout(function() {
         $('#cc_box').hide();
-      }, mouseenter_TIMEOUT_MS);
+      }, MOUSE_TIMEOUT_MS);
     });
   }
 
