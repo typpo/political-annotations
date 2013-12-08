@@ -35,38 +35,23 @@ var mouseenter_TIMEOUT_MS = 700;
         return;
       }
 
-      var politicians = data.all_pols;
-      if (politicians.length < 1) {
+      if (data.all_pols.length < 1) {
         console.error('Where are the politicians?');
         return;
       }
 
-      var regex_str = '(';
-      for (var i=0; i < politicians.length; i++) {
-        if (i > 0) regex_str += '|';
-        regex_str += politicians[i];
-      }
-      regex_str += ')';
-      var regex = RegExp(regex_str, 'g');
-      $('p').each(function() {
-        this.innerHTML = this.innerHTML.replace(regex, '<span class="cc_highlight">$1</span>');
-      });
-
+      highlightPolititions(data.all_pols);
       bindDialogs();
     });
   });
 
-  /*
   function highlightPolititions(pols) {
-		for (pol in pols) {
-      var polEl = $(":contains('"+pol+"')");
-      var replacement = $('<span class="cc_highlight/>');
-      polEl.html(polEl.html().replace(pol, replacement.html(pol)));
-    }
+  	var regex_str = '(' + pols.join('|') + ')';
+	  var regex = RegExp(regex_str, 'g');
+	  $('p').each(function() {
+	    this.innerHTML = this.innerHTML.replace(regex, '<span class="cc_highlight">$1</span>');
+	  });
   }
-
-  highlightPolititions(politicians);
-  */
 
   function bindDialogs() {
     var t_hide = null;
@@ -79,19 +64,19 @@ var mouseenter_TIMEOUT_MS = 700;
         $box = $(tmpl(BOX_TEMPLATE, {})).appendTo('body');
       }
 
-      // Position box
       $box.html('Loading...');
-      var $span = $(this);
+
+      // Position box
       $box.css({
-        top: $span.offset().top - $('#cc_box').height() - 70,
-        left: $span.offset().left - $('#cc_box').width()/2 + $span.width(),
-      }).on('mouseenter', function() {
-        clearTimeout(t_hide);
-      }).on('mouseleave', function() {
+        top: $(this).offset().top - $('#cc_box').height() - 70,
+        left: $(this).offset().left - $('#cc_box').width()/2 + $(this).width() })
+      .on('mouseenter', function() {
+        clearTimeout(t_hide); })
+      .on('mouseleave', function() {
         t_hide = setTimeout(function() {
           $box.hide();
-        }, mouseenter_TIMEOUT_MS);
-      }).show();
+        }, mouseenter_TIMEOUT_MS); })
+      .show();
 
       // Load content
       var $cc_high = $(this);
@@ -137,27 +122,31 @@ var mouseenter_TIMEOUT_MS = 700;
         console.error(chrome.runtime.lastError);
         return;
       }
-      if (data) {
-        console.log('already have');
-        callback();
-        return;
-      }
       console.log('Loading senators');
-
-      $.getJSON('http://localhost:5000/legislature', function(data) {
-        var legislators = data.results;
-        var all_pols = [];
-        for (var i=0; i < legislators.length; i++) {
-          var legislator = legislators[i];
-          var key = legislator.first_name + ' ' + legislator.last_name;
-          all_pols.push(key);
-          var obj = {};
-          obj[key] = legislator;
-          chrome.storage.local.set(obj);
-        }
-        chrome.storage.local.set({'all_pols': all_pols});
-        callback();
-      });
+        $.ajax({
+            url: "http://localhost:5000/legislature",
+            dataType: 'json',
+            timeout: 10000,
+            success:  function(data){
+                var legislators = data.results;
+                var all_pols = [];
+                for (var i=0; i < legislators.length; i++) {
+                    var legislator = legislators[i];
+                    var key = legislator.first_name + ' ' + legislator.last_name;
+                    all_pols.push(key);
+                    var obj = {};
+                    obj[key] = legislator;
+                    chrome.storage.local.set(obj);
+                }
+                chrome.storage.local.set({'all_pols': all_pols});
+                callback();
+            },
+            error: function()
+            {
+                console.log("error loading url");
+                $('#cc_box').empty().html("There was error loading contents.  Please refresh the page and try again.");
+            }
+        });
     });
   }
 
