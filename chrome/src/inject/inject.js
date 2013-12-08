@@ -19,6 +19,7 @@ var BOX_CONTENT =
     '<tr><td><a target="_blank" href="https://www.google.com/search?q=<%= contribs[i].name %>"><%= contribs[i].name %></a></td><td>$<%= commaSeparateNumber(contribs[i].total_amount) %></td></tr>' +
   '<% } %>' +
   '</table>' +
+  '<span class="cc_sub cc_bottom"><a target="_blank" href="http://www.opensecrets.org/usearch/?q=<%= name.replace(\' \', \'+\')  %>">See more</a></span>' +
   '</div><div class="cc_arrow_down"></div>';
 
 var mouseenter_TIMEOUT_MS = 700;

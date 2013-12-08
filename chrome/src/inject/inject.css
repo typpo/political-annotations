@@ -81,9 +81,20 @@
   overflow: hidden;
 }
 
+.cc_sub.cc_bottom {
+  padding-top: 3px;
+}
+
 .cc_sub {
-  color: #ccc;
-  font-weight: strong;
+  color: #ccc !important;
+  font-weight: strong !important;
+  margin-bottom:5px;
+}
+
+.cc_sub a {
+  color: #ccc !important;
+  font-weight: strong !important;
+  text-decoration: underline;
   margin-bottom:5px;
 }
 
