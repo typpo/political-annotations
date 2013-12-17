@@ -38,6 +38,14 @@
 
 .cc_top {
   margin-top: -15px !important;
+  display: inline-block;
+  width: 100%;
+}
+
+.cc_box .tab {
+  display: inline-block;
+  outline: 1px solid gray;
+  width: 50%;
 }
 
 .cc_box h1 {
@@ -79,6 +87,7 @@
   float:left;
   position:relative;
   overflow: hidden;
+  outline: 1px solid gray;
 }
 
 .cc_sub {

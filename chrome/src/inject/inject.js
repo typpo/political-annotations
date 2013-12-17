@@ -5,21 +5,26 @@ var BOX_TEMPLATE =
 '</div>';
 
 var BOX_CONTENT =
-  '<div class="cc_top"><img src="https://usercontent.googleapis.com/freebase/v1/image/en/<%= name.toLowerCase().replace(\' \', \'_\') %>"/><h1><%=name%></h1>' +
-  '<a class="cc_tweet_link" target="_blank" href="http://twitter.com/<%= contact.twitter_id %>"><img class="cc_twitter" src="http://s.huffpost.com/images/icons/twitter-icon-vsmall.png"/></a>' +
-  '<a class="cc_fb_link" target="_blank" href="http://facebook.com"><img class="cc_facebook" src="http://i.imgur.com/inGem0b.png"/></a>' +
-  '<%= capitalize(contact.state_rank) %> Senator, <%= contact.state_name %> (<%= contact.party %>)<br>' +
-  'Phone: <a href="tel:<%= contact.phone %>"><%= contact.phone %></a><br>' +
-  'Site: <a href="<%= contact.website %>"><%= contact.website %></a>' +
+  '<div class="cc_top">' +
+    '<img src="https://usercontent.googleapis.com/freebase/v1/image/en/<%= name.toLowerCase().replace(\' \', \'_\') %>"/>' +
+    '<h1><%=name%></h1>' +
+    '<a class="cc_tweet_link" target="_blank" href="http://twitter.com/<%= contact.twitter_id %>"><img class="cc_twitter" src="http://s.huffpost.com/images/icons/twitter-icon-vsmall.png"/></a>' +
+    '<a class="cc_fb_link" target="_blank" href="http://facebook.com"><img class="cc_facebook" src="http://i.imgur.com/inGem0b.png"/></a>' +
+    '<%= capitalize(contact.state_rank) %> Senator, <%= contact.state_name %> (<%= contact.party %>)<br>' +
+    'Phone: <a href="tel:<%= contact.phone %>"><%= contact.phone %></a><br>' +
+    'Site: <a href="<%= contact.website %>"><%= contact.website %></a>' +
   '</div>' +
-  '<div class="cc_content">' +
-  '<span class="cc_sub">Where\'s the money?</span>' +
+  '<button id="top-contrib" class="tab active">Top 5 Contributors</button>' +
+  '<button id="visualize" class="tab">visualization</button>' +
+  '<div id="cc_content" class="cc_content"></div>' +
+  '<div class="cc_arrow_down"></div>';
+
+var TOP_5_CONTENT = 
   '<table>' +
-  '<% for (var i=0; i < contribs.length; i++) { %>' +
-    '<tr><td><a target="_blank" href="https://www.google.com/search?q=<%= contribs[i].name %>"><%= contribs[i].name %></a></td><td>$<%= commaSeparateNumber(contribs[i].total_amount) %></td></tr>' +
-  '<% } %>' +
-  '</table>' +
-  '</div><div class="cc_arrow_down"></div>';
+    '<% for (var i=0; i < contribs.length; i++) { %>' +
+      '<tr><td><a target="_blank" href="https://www.google.com/search?q=<%= contribs[i].name %>"><%= contribs[i].name %></a></td><td>$<%= commaSeparateNumber(contribs[i].total_amount) %></td></tr>' +
+    '<% } %>' +
+  '</table>';
 
 var mouseenter_TIMEOUT_MS = 700;
 
@@ -81,11 +86,16 @@ var mouseenter_TIMEOUT_MS = 700;
       var $cc_high = $(this);
       var name = $cc_high.text();
       fetchDetails(name, function(data) {
-        $box.html(tmpl(BOX_CONTENT, {
+        var context = {
           name: name,
           contact: data.contact,
           contribs: data.contribs,
-        }));
+        };
+
+        var $html = $(tmpl(BOX_CONTENT, context));
+        $html.filter('#cc_content').html(tmpl(TOP_5_CONTENT, context));
+        $box.html($html);
+
         clearTimeout(t_hide);
       });
     }).on('mouseleave', function() {
