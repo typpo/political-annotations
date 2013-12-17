@@ -86,14 +86,10 @@ var mouseenter_TIMEOUT_MS = 700;
       var $cc_high = $(this);
       var name = $cc_high.text();
       fetchDetails(name, function(data) {
-        var context = {
-          name: name,
-          contact: data.contact,
-          contribs: data.contribs,
-        };
 
-        var $html = $(tmpl(BOX_CONTENT, context));
-        $html.filter('#cc_content').html(tmpl(TOP_5_CONTENT, context));
+        data.name = name;
+        var $html = $(tmpl(BOX_CONTENT, data));
+        $html.filter('#cc_content').html(tmpl(TOP_5_CONTENT, data));
         $box.html($html);
 
         clearTimeout(t_hide);
