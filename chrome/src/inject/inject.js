@@ -134,10 +134,16 @@ var mouseenter_TIMEOUT_MS = 700;
         .size([w,h])
         .padding(2);
 
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .html(function(d){ return d.name + '\n' +
+          '($'+ commaSeparateNumber(d.value) +')'; })
+
     var svg = d3.select(el).append('svg')
         .attr('width', w)
         .attr('height', h)
         .attr('class', 'bubble')
+        .call(tip)
 
     var node = svg.selectAll('.node')
         .data(bubble.nodes(root)
@@ -147,16 +153,15 @@ var mouseenter_TIMEOUT_MS = 700;
         .attr('transform', function(d){
           return 'translate('+ d.x +','+ d.y +')'; })
 
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide)
+        .on('click', function(d){ window.location = 
+          'https://www.google.com/search?q=' + d.name;
+        })
+
     node.append('circle')
         .attr('r', function(d){ return d.r; })
         .style('fill', 'rgb(230,200,200)')
-
-    node.append('text')
-        .attr('dy', '.15em')
-        .style('text-anchor', 'middle')
-        .text(function(d){ 
-          return d.name + '\n' +
-            '($'+ commaSeparateNumber(d.value) +')'; })
 
     return el;
   }
