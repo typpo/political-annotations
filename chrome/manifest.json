@@ -28,7 +28,8 @@
         "https://*/*"
       ],
       "css": [
-        "src/inject/inject.css"
+        "src/inject/inject.css",
+        "src/inject/d3-tip.css"
       ]
     },
     {
@@ -39,6 +40,7 @@
       "js": [
         "js/jquery/jquery.js",
         "js/d3/d3.js",
+        "js/d3-tip/index.js",
         "src/inject/inject.js"
       ]
     }
