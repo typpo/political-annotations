@@ -19,7 +19,7 @@ var BOX_CONTENT =
   '<div id="cc_content" class="cc_content"></div>' +
   '<div class="cc_arrow_down"></div>';
 
-var TOP_5_CONTENT = 
+var TOP_CONTRIB = 
   '<table>' +
     '<% for (var i=0; i < contribs.length; i++) { %>' +
       '<tr><td><a target="_blank" href="https://www.google.com/search?q=<%= contribs[i].name %>"><%= contribs[i].name %></a></td><td>$<%= commaSeparateNumber(contribs[i].total_amount) %></td></tr>' +
@@ -88,9 +88,12 @@ var mouseenter_TIMEOUT_MS = 700;
       fetchDetails(name, function(data) {
 
         data.name = name;
-        var $html = $(tmpl(BOX_CONTENT, data));
-        $html.filter('#cc_content').html(tmpl(TOP_5_CONTENT, data));
-        $box.html($html);
+        var $top_contrib = $(tmpl(TOP_CONTRIB, data));
+        var $box_content = $(tmpl(BOX_CONTENT, data));
+        $box_content.filter('#cc_content').html($top_contrib);
+        $box.html($box_content);
+
+        bindTabClicks($box, data.contribs);
 
         clearTimeout(t_hide);
       });
@@ -99,6 +102,24 @@ var mouseenter_TIMEOUT_MS = 700;
         $('#cc_box').hide();
       }, mouseenter_TIMEOUT_MS);
     });
+  }
+
+  function bindTabClicks(cc_box, contribs) {
+    var alt_content; // keeps the hidden content in memory
+    cc_box.find('.tab').click(function(){
+      if ($(this).hasClass('active')) return;
+      else cc_box.find('.tab').toggleClass('active');
+
+      // render the visualization if it's the first time
+      if (!alt_content) alt_content = visualize(contribs);
+      alt_content = cc_box.find('#cc_content').replaceWith(alt_content);
+    });
+  }
+
+  function visualize(contribs) {
+    var el = $('<div id="cc_content" class="cc_content"></div>')[0];
+    // TODO: render visualization
+    return el;
   }
 
   var contrib_cache = {};
