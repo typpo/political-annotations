@@ -111,14 +111,53 @@ var mouseenter_TIMEOUT_MS = 700;
       else cc_box.find('.tab').toggleClass('active');
 
       // render the visualization if it's the first time
-      if (!alt_content) alt_content = visualize(contribs);
+      if (!alt_content){
+        var w = cc_box.find('#cc_content').width();
+        var h = cc_box.find('#cc_content').height();
+        alt_content = visualize(contribs,w,h);
+      }
+
       alt_content = cc_box.find('#cc_content').replaceWith(alt_content);
     });
   }
 
-  function visualize(contribs) {
+  function visualize(contribs,w,h) {
     var el = $('<div id="cc_content" class="cc_content"></div>')[0];
-    // TODO: render visualization
+
+    var root = {children:[]};
+    contribs.forEach(function(contrib){
+      root.children.push(
+        {name: contrib.name, value: contrib.total_amount}
+    )});
+
+    var bubble = d3.layout.pack()
+        .size([w,h])
+        .padding(2);
+
+    var svg = d3.select(el).append('svg')
+        .attr('width', w)
+        .attr('height', h)
+        .attr('class', 'bubble')
+
+    var node = svg.selectAll('.node')
+        .data(bubble.nodes(root)
+        .filter(function(d){ return !d.children; }))
+      .enter().append('g')
+        .attr('class', 'node')
+        .attr('transform', function(d){
+          return 'translate('+ d.x +','+ d.y +')'; })
+
+    node.append('circle')
+        .attr('r', function(d){ return d.r; })
+        .style('fill', 'rgb(230,200,200)')
+
+    node.append('text')
+        .attr('dy', '.15em')
+        .style('text-anchor', 'middle')
+        .text(function(d){ 
+          return d.name + '\n' +
+            '($'+ commaSeparateNumber(d.value) +')'; })
+
     return el;
   }
 
