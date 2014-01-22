@@ -6,7 +6,7 @@ This is a chrome extension that allows you to hover over the names of politician
 Screenshot in action:
 
 
-![in action](http://i.imgur.com/EHthO0D.png)
+![in action](http://i.imgur.com/C2QG9ZOm.png)
 
 
 Test me:
@@ -33,17 +33,17 @@ How to install:
 
 1. Download repository
   git clone git@github.com:typpo/political-annotations.git
-  
+
 2. Enable Developer Mode in Chrome
   Settings > Extensions > Click Developer mode
-  
+
 3. Load unpacked extension
   Click "Load unpacked extension"  > navigate to /Chrome directory.
-  
+
 4. Refresh chrome://extensions/
 
 5. Visit our test pages
-  
-  
-  
-  
+
+
+
+
