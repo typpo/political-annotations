@@ -152,9 +152,19 @@ var MOUSE_TIMEOUT_MS = 700;
             }
         });
     });
-  }
-
+  } // end loadSenators
 })(jQuery);
+
+function commaSeparateNumber(val){
+  while (/(\d+)(\d{3})/.test(val.toString())){
+    val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+  }
+  return val;
+}
+
+function capitalize(s) {
+  return s[0].toUpperCase() + s.slice(1);
+}
 
 // John Resig - http://ejohn.org/ - MIT Licensed
 var cache = {};
@@ -186,15 +196,4 @@ function tmpl(str, data) {
 
   // Provide some basic currying to the user
   return data ? fn( data ) : fn;
-}
-
-function commaSeparateNumber(val){
-  while (/(\d+)(\d{3})/.test(val.toString())){
-    val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
-  }
-  return val;
-}
-
-function capitalize(s) {
-  return s[0].toUpperCase() + s.slice(1);
 }
