@@ -9,7 +9,7 @@ Screenshot in action:
 ![in action](http://i.imgur.com/C2QG9ZOm.png)
 
 
-Test me:
+Test me after installing the extension:
 - http://www.huffingtonpost.com/2013/08/13/cory-booker-rand-paul-ted-cruz_n_3749389.html
 - http://www.huffingtonpost.com/2013/11/09/patty-murray-budget-_n_4242768.html
 - http://topics.nytimes.com/top/reference/timestopics/people/r/harry_reid/
